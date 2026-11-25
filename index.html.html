@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="hu">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f7f3ec">
+<title>CSIGA RANGSOR — Kakaós csiga értékelő</title>
+<style>
+:root{--bg:#f7f3ec;--paper:#fffdf9;--ink:#28231f;--muted:#82786f;--line:#e9e1d7;--brown:#75452d;--orange:#e69b54;--cream:#f1dfc8;--green:#466b50;--shadow:0 12px 35px #3d2a1710}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+button,input,textarea,select{font:inherit}button{cursor:pointer}
+header{position:sticky;top:0;z-index:5;background:#f7f3ecef;backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{max-width:1120px;margin:auto;padding:15px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:.08em}.brandmark{width:38px;height:38px;border-radius:13px;background:var(--brown);display:grid;place-items:center;color:white;font-size:21px}
+.navlinks{display:flex;gap:8px}.navlinks button,.ghost{border:0;background:transparent;color:var(--muted);padding:10px 13px;border-radius:12px;font-weight:700}.navlinks button.active,.navlinks button:hover{background:#eee5d9;color:var(--brown)}
+.primary{background:var(--brown);color:white;border:0;border-radius:13px;padding:12px 17px;font-weight:800;box-shadow:0 5px 14px #75452d22}.primary:hover{background:#5f3622;transform:translateY(-1px)}
+main{max-width:1120px;margin:0 auto;padding:38px 24px 70px}
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center;padding:38px 0 34px}
+.eyebrow{color:var(--brown);font-weight:900;font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+h1{font-size:clamp(42px,6vw,68px);line-height:.99;letter-spacing:-.055em;margin:14px 0 18px;max-width:650px}
+h1 span{color:var(--brown)}.lead{color:var(--muted);font-size:18px;max-width:540px;margin:0 0 24px}
+.hero-actions{display:flex;gap:10px;flex-wrap:wrap}.secondary{background:var(--paper);border:1px solid var(--line);border-radius:13px;padding:12px 17px;font-weight:800;color:var(--ink)}
+.hero-art{min-height:275px;border-radius:30px;background:linear-gradient(145deg,#ead4b9,#d6a77d);display:grid;place-items:center;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.hero-art:before,.hero-art:after{content:"";position:absolute;border:1px solid #ffffff75;border-radius:50%;width:300px;height:300px}.hero-art:after{width:390px;height:390px}
+.pastry{font-size:145px;filter:drop-shadow(0 15px 12px #69401c45);transform:rotate(-13deg);z-index:1}
+.sticker{position:absolute;right:22px;bottom:22px;background:#fffaf0;border-radius:16px;padding:12px 15px;font-size:12px;font-weight:900;transform:rotate(5deg);box-shadow:var(--shadow)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin:8px 0 38px}
+.stat{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:17px 19px}.stat strong{font-size:25px;display:block;letter-spacing:-.04em}.stat span{color:var(--muted);font-size:13px}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:15px;margin:34px 0 17px}.section-head h2{margin:0;font-size:26px;letter-spacing:-.04em}.section-head p{margin:3px 0 0;color:var(--muted);font-size:14px}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px}.search{flex:1;min-width:190px}.search input,.toolbar select,.field input,.field textarea,.field select{width:100%;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px 13px;outline:none;color:var(--ink)}input:focus,textarea:focus,select:focus{border-color:#b78662!important;box-shadow:0 0 0 3px #b786621c}
+.toolbar select{width:auto;min-width:150px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:19px;padding:17px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:12px;min-width:0}
+.card-top{display:flex;justify-content:space-between;align-items:start;gap:12px}.place{font-size:12px;color:var(--muted);font-weight:700}.card h3{font-size:18px;line-height:1.2;margin:3px 0 0}.score{background:#f4e6d5;color:var(--brown);border-radius:13px;padding:7px 10px;font-weight:900;white-space:nowrap}.score small{font-size:10px;opacity:.7}
+.tags{display:flex;gap:6px;flex-wrap:wrap}.tag{font-size:11px;background:#f3eee7;color:#78685b;border-radius:20px;padding:5px 9px;font-weight:700}
+.review{color:#655d55;font-size:14px;margin:0;flex:1}.card-bottom{display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--line);padding-top:11px;color:var(--muted);font-size:12px}.like{border:0;background:transparent;color:var(--brown);font-weight:800;padding:5px}
+.empty{grid-column:1/-1;text-align:center;background:var(--paper);border:1px dashed #d8c8b8;border-radius:18px;padding:35px;color:var(--muted)}
+footer{border-top:1px solid var(--line);padding:24px;text-align:center;color:var(--muted);font-size:12px}
+.modal-backdrop{position:fixed;inset:0;background:#24170f77;display:none;place-items:center;padding:18px;z-index:10}.modal-backdrop.open{display:grid}
+.modal{background:var(--paper);width:min(570px,100%);max-height:92vh;overflow:auto;border-radius:23px;padding:24px;box-shadow:0 25px 80px #0003}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px}.modal h2{margin:0;font-size:25px;letter-spacing:-.04em}.close{border:0;background:#f1ebe3;border-radius:10px;width:36px;height:36px;font-size:20px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:12px;font-weight:800;color:#6c5d50}.field textarea{min-height:88px;resize:vertical}
+.rating-input{display:flex;align-items:center;gap:12px}.rating-input input{flex:1;accent-color:var(--brown)}.rating-number{font-weight:900;color:var(--brown);font-size:21px;min-width:42px}
+.form-note{font-size:12px;color:var(--muted);margin:12px 0}.form-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:18px}
+.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);background:#29231f;color:white;padding:12px 17px;border-radius:12px;opacity:0;pointer-events:none;transition:.25s;z-index:20}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:800px){.hero{grid-template-columns:1fr}.hero-art{min-height:220px}.cards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.nav{padding:12px 16px}.navlinks{display:none}main{padding:25px 16px 55px}.hero{padding-top:23px}.stats{gap:8px}.stat{padding:13px}.stat strong{font-size:21px}.cards{grid-template-columns:1fr}.section-head{align-items:start;flex-direction:column}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.pastry{font-size:120px}}
+</style>
+</head>
+<body>
+<header><div class="nav">
+  <div class="brand"><div class="brandmark">🥐</div><span>CSIGA RANGSOR</span></div>
+  <nav class="navlinks"><button class="active" data-scroll="top">Kezdőlap</button><button data-scroll="ranking">Ranglista</button><button data-scroll="about">Rólunk</button></nav>
+  <button class="primary" id="openFormTop">＋ Értékelek</button>
+</div></header>
+<main id="top">
+  <section class="hero">
+    <div><div class="eyebrow">A kakaós csigák közösségi térképe</div>
+      <h1>Nem minden csiga <span>egyforma.</span></h1>
+      <p class="lead">Kóstolj, pontozz, és segíts megtalálni a város legfinomabb kakaós csigáját. Mert a jó csiga megérdemli az elismerést.</p>
+      <div class="hero-actions"><button class="primary" id="openFormHero">＋ Új csiga értékelése</button><button class="secondary" id="showRanking">Megnézem a ranglistát ↓</button></div>
+    </div>
+    <div class="hero-art"><div class="pastry">🥮</div><div class="sticker">100% CSIGA-RAJONGÁS</div></div>
+  </section>
+  <section class="stats">
+    <div class="stat"><strong id="statCount">0</strong><span>értékelés</span></div>
+    <div class="stat"><strong id="statPlaces">0</strong><span>különböző pékség</span></div>
+    <div class="stat"><strong id="statAverage">–</strong><span>átlagos csigapontszám</span></div>
+  </section>
+  <section id="ranking">
+    <div class="section-head"><div><div class="eyebrow">A közösség kedvencei</div><h2>Csiga toplista</h2><p>A legmagasabb értékeléstől lefelé rendezve.</p></div></div>
+    <div class="toolbar">
+      <div class="search"><input id="search" type="search" placeholder="🔎  Keresés pékségre vagy csigára…"></div>
+      <select id="sort"><option value="score">Legjobb értékelés</option><option value="newest">Legújabbak</option><option value="price">Legalacsonyabb ár</option></select>
+    </div>
+    <div class="cards" id="cards"></div>
+  </section>
+  <section id="about" style="margin-top:55px;background:#efe5d8;border-radius:22px;padding:25px 28px">
+    <div class="eyebrow">A küldetésünk</div><h2 style="margin:7px 0;font-size:25px">Egy falatnyi igazságosság.</h2>
+    <p style="margin:0;color:#76695e;max-width:720px">A CSIGA RANGSOR azért jött létre, hogy a kakaós csigák ne csak elfogyjanak, hanem méltó értékelést is kapjanak. A pontszámok a látogatók véleményeiből számolódnak. Kóstolásra fel!</p>
+  </section>
+</main>
+<footer>CSIGA RANGSOR · Szeretettel, kakaóporral és sok-sok réteggel. <span id="year"></span></footer>
+
+<div class="modal-backdrop" id="modal">
+ <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-head"><h2 id="modalTitle">Új csiga értékelése</h2><button class="close" id="closeModal" aria-label="Bezárás">×</button></div>
+  <form id="reviewForm">
+   <div class="form-grid">
+    <div class="field"><label for="bakery">Pékség neve *</label><input id="bakery" required maxlength="70" placeholder="Pl. A Pékség"></div>
+    <div class="field"><label for="product">Csiga neve / típusa</label><input id="product" maxlength="70" placeholder="Pl. Klasszikus kakaós"></div>
+    <div class="field"><label for="price">Ár (Ft)</label><input id="price" type="number" min="0" max="100000" placeholder="Pl. 590"></div>
+    <div class="field"><label for="size">Méret</label><select id="size"><option value="Normál">Normál</option><option value="Kicsi">Kicsi</option><option value="Nagy">Nagy</option><option value="Óriás">Óriás</option></select></div>
+    <div class="field full"><label for="score">Összpontszám (1–10) *</label><div class="rating-input"><input id="score" type="range" min="1" max="10" value="8"><span class="rating-number" id="scoreValue">8/10</span></div></div>
+    <div class="field"><label for="taste">Íz (1–10)</label><select id="taste"><option>10</option><option>9</option><option selected>8</option><option>7</option><option>6</option><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select></div>
+    <div class="field"><label for="texture">Állag (1–10)</label><select id="texture"><option>10</option><option>9</option><option selected>8</option><option>7</option><option>6</option><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select></div>
+    <div class="field full"><label for="comment">Véleményed</label><textarea id="comment" maxlength="400" placeholder="Milyen volt az első harapás? Jöhet az őszinte vélemény…"></textarea></div>
+   </div>
+   <p class="form-note">* Kötelező mező. Az értékelések ebben a böngészőben tárolódnak.</p>
+   <div class="form-actions"><button type="button" class="secondary" id="cancelForm">Mégse</button><button type="submit" class="primary">Értékelés mentése</button></div>
+  </form>
+ </div>
+</div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+const STORAGE_KEY='csiga-rangsor-reviews-v1';
+const seed=[
+ {id:'seed1',bakery:'Mákos Guba Pékség',product:'Klasszikus kakaós csiga',price:590,size:'Nagy',score:9.4,taste:10,texture:9,comment:'Puha, foszlós tészta, bőséges kakaós töltelék. Pont ilyen egy tökéletes reggeli csiga!',date:'2026-11-20',likes:12},
+ {id:'seed2',bakery:'Reggeli Műhely',product:'Vajas kakaós csiga',price:690,size:'Normál',score:9.1,taste:9,texture:10,comment:'Vajas, réteges tészta és nagyon jó arányú töltelék. Egy picit drága, de megéri.',date:'2026-11-18',likes:8},
+ {id:'seed3',bakery:'Sarki Pékség',product:'Extra kakaós',price:450,size:'Óriás',score:8.3,taste:9,texture:8,comment:'Hatalmas adag, intenzív kakaóíz. Kicsit ragacsos, de szerethető.',date:'2026-11-15',likes:5}
+];
+let reviews=[];
+try{const saved=JSON.parse(localStorage.getItem(STORAGE_KEY));reviews=Array.isArray(saved)?saved:seed}catch(e){reviews=seed}
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function persist(){localStorage.setItem(STORAGE_KEY,JSON.stringify(reviews))}
+function avg(list){return list.length?(list.reduce((s,r)=>s+Number(r.score),0)/list.length).toFixed(1):'–'}
+function render(){
+ const q=$('search').value.trim().toLocaleLowerCase('hu');let list=reviews.filter(r=>(r.bakery+' '+r.product+' '+r.comment).toLocaleLowerCase('hu').includes(q));
+ const sort=$('sort').value;list.sort((a,b)=>sort==='newest'?b.date.localeCompare(a.date):sort==='price'?(Number(a.price)||Infinity)-(Number(b.price)||Infinity):b.score-a.score);
+ $('statCount').textContent=reviews.length;$('statPlaces').textContent=new Set(reviews.map(r=>r.bakery.toLocaleLowerCase('hu'))).size;$('statAverage').textContent=avg(reviews);
+ $('cards').innerHTML=list.length?list.map((r,i)=>`<article class="card">
+  <div class="card-top"><div><div class="place">${esc(r.bakery)}</div><h3>${esc(r.product||'Kakaós csiga')}</h3></div><div class="score">${Number(r.score).toFixed(1)}<small>/10</small></div></div>
+  <div class="tags"><span class="tag">🥐 ${esc(r.size||'Normál')}</span>${r.price?`<span class="tag">${Number(r.price).toLocaleString('hu-HU')} Ft</span>`:''}<span class="tag">Íz ${esc(r.taste||'–')}/10</span><span class="tag">Állag ${esc(r.texture||'–')}/10</span></div>
+  <p class="review">${esc(r.comment||'Ehhez a csigához még nem írtak szöveges véleményt.')}</p>
+  <div class="card-bottom"><span>${new Date(r.date+'T12:00:00').toLocaleDateString('hu-HU')}</span><button class="like" data-like="${esc(r.id)}">♡ ${Number(r.likes)||0} hasznos</button></div>
+ </article>`).join(''):'<div class="empty">🥐<br><strong>Még nincs ilyen csiga a listán.</strong><br>Próbálj más keresést, vagy adj hozzá egy új értékelést!</div>';
+}
+function openModal(){$('modal').classList.add('open');$('bakery').focus()}
+function closeModal(){$('modal').classList.remove('open')}
+function toast(msg){$('toast').textContent=msg;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),2500)}
+['openFormTop','openFormHero'].forEach(id=>$(id).addEventListener('click',openModal));
+['closeModal','cancelForm'].forEach(id=>$(id).addEventListener('click',closeModal));
+$('modal').addEventListener('click',e=>{if(e.target===$('modal'))closeModal()});
+$('score').addEventListener('input',e=>$('scoreValue').textContent=e.target.value+'/10');
+$('reviewForm').addEventListener('submit',e=>{
+ e.preventDefault();const bakery=$('bakery').value.trim();if(!bakery)return;
+ const entry={id:'r'+Date.now(),bakery,product:$('product').value.trim()||'Kakaós csiga',price:Number($('price').value)||0,size:$('size').value,score:Number($('score').value),taste:Number($('taste').value),texture:Number($('texture').value),comment:$('comment').value.trim(),date:new Date().toISOString().slice(0,10),likes:0};
+ reviews.unshift(entry);persist();$('reviewForm').reset();$('score').value=8;$('scoreValue').textContent='8/10';closeModal();$('search').value='';$('sort').value='newest';render();toast('Köszi! Az értékelésed felkerült a listára.');$('ranking').scrollIntoView({behavior:'smooth'});
+});
+$('search').addEventListener('input',render);$('sort').addEventListener('change',render);
+$('cards').addEventListener('click',e=>{const b=e.target.closest('[data-like]');if(!b)return;const r=reviews.find(x=>x.id===b.dataset.like);if(r){r.likes=(Number(r.likes)||0)+1;persist();render();toast('Köszi a visszajelzést!')}});
+$('showRanking').addEventListener('click',()=>$('ranking').scrollIntoView({behavior:'smooth'}));
+document.querySelectorAll('[data-scroll]').forEach(b=>b.addEventListener('click',()=>$(b.dataset.scroll).scrollIntoView({behavior:'smooth'})));
+$('year').textContent='© '+new Date().getFullYear();render();
+</script>
+</body></html>
